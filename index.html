@@ -11,9 +11,10 @@
    
     <div id="weather-container">
         <h2>Access Location</h2>
+        <div id="loading" class="loading">Loading...</div>
         <div class="notification"></div>
         <div class="weather-icon"></div>
-        <div class="temp-div"></div>
+        <div class="temp-div" style="font-size: 67px;font-weight: bolder;"></div>
         <div class="weather-info"></div>
         <div class="hourly-forecast"></div>
     </div>
@@ -23,7 +24,7 @@
         <input type="text" id="city" placeholder="Enter city" >
         <button onclick="getWeather()">Search</button>
         <img id="weather-icon" alt="Weather Icon">
-        <div id="temp-div"></div>
+        <div id="temp-div" style="font-size: 67px;font-weight: bolder;"></div>
         <div id="weather-info"></div>
         <div id="hourly-forecast"></div>
     </div>

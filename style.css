@@ -1,5 +1,5 @@
 body{
-    background: #529dff;
+    background: #1c51ef;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     align-items: center;
@@ -97,3 +97,21 @@ temp-div p {
     margin-top: 10px;
 }
 
+.loading {
+    display: none;
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 67px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: spin 2s linear infinite;   
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+.loading.show {
+    display: block;
+}
