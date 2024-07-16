@@ -1,5 +1,85 @@
+const apiKey = '5470dff2b57ca704481ea795f3d499e8';
+const KELVIN = 273;
+
+
+//Get Location
+const iconE = document.querySelector(".weather-icon");
+const temperatureE = document.querySelector(".temp-div");
+const descriptionE = document.querySelector(".weather-info");
+const locationE = document.querySelector(".hourly-forecast");
+const notifyE = document.querySelector(".notification");
+
+const weather = {
+  city: "-",
+  country: "-",
+  iconId: "unknown",
+  description: "-",
+  temperature: {
+    unit: "celsius",
+    value: 0,
+  },
+};
+
+const displayWeatherLocation = () => {
+  iconE.innerHTML = `<img src="${weather.iconId}">`;
+  temperatureE.innerHTML = `<p>${weather.temperature.value}°<span>C<span><p>`;
+  descriptionE.innerHTML = `<p>${weather.description}<p>`;
+  locationE.innerHTML = `<p>${weather.city}, ${weather.country}<p> `;
+};
+
+
+
+const getWeatherLocation = async (latitude, longitude) => {
+  const api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${apiKey}`;
+  const data = await (await fetch(api)).json();
+  // console.log({ data });
+  const iconCode = data.weather[0].icon;
+  const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
+
+  weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+  weather.description = data.weather[0].description;
+  weather.iconId = iconUrl;
+  weather.city = data.name;
+  weather.country = data.sys.country;
+  displayWeatherLocation();
+};
+
+const setPosition = (position) => {
+  const { latitude, longitude } = position.coords;
+  getWeatherLocation(latitude, longitude);
+};
+
+const showError = (error) => {
+  notifyE.style.display = "block";
+  notifyE.innerHTML = `<p>${error.message}</p>`;
+};
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(setPosition, showError);
+} else {
+  notifyE.getElementsByClassName.display = "block";
+  notifyE.innerHTML = "<p>Error to access Geolocation</p>";
+}
+// getWeather()
+
+const celsiusTofahrenheit = (celsius) => Math.floor((celsius *9) / 5 + 32)
+temperatureE.addEventListener('click' , () => {
+  if (!weather.temperature.value) return
+
+  if(weather.temperature.unit === 'celsius') {
+    const fahrenheit = celsiusTofahrenheit(weather.temperature.value)
+    temperatureE.innerHTML =  `<p>${fahrenheit}°<span>F<span><p>`
+    weather.temperature.unit = 'fahrenheit'
+  }else{
+    temperatureE.innerHTML =  `<p>${weather.temperature.value}°<span>C<span><p>`
+    weather.temperature.unit = 'celsius'
+  }
+})
+
+
+// By Search
 function getWeather() {
-    const apiKey = '5470dff2b57ca704481ea795f3d499e8';
+    
     const city = document.getElementById('city').value;
 
     if (!city) {
@@ -97,3 +177,4 @@ function showImage() {
     const weatherIcon = document.getElementById('weather-icon');
     weatherIcon.style.display = 'block'; // Make the image visible once it's loaded
 }
+

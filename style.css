@@ -17,6 +17,9 @@ box-shadow: 0 6px 33px rgba(0, 0, 0, 0.3);
 backdrop-filter: blur(10px);
 border:2px solid rgba(255, 255, 255, 0.1);
 text-align: center;
+display: block;
+margin: 100px;
+
 }
 
 h2, label, p {
@@ -49,7 +52,7 @@ button:hover {
 }
 
 temp-div p {
-    font-size: 60px;
+    font-size: 650px;
     margin-top: -30px;
 }
 
